@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 10rem;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #d35400; /* Coffee color */
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    img {
+        width: 150px;
+        height: auto;
+        margin: 20px 0;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 16px;
+        color: white;
+        background: #e67e22; /* Coffee theme */
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s ease;
+        margin-top: 15px;
+    }
+
+    .btn:hover {
+        background: #d35400;
+    }
+</style>
+
+<div class="container">
+    <h2>Your Token: {{rand}}</h2>
+    <h3>Please show this token to our service boy. <br>
+    He will bring you the coffee.</h3>
+
+    <img src="{% static '123.png' %}" alt="Order Confirmed">
+
+    <h2>✅ Payment Successfully Received</h2>
+    <h3>Thanks for ordering from Gana's Coffee Shop ☕</h3>
+
+    <a href="{% url 'home' %}" class="btn">Order Again</a>
+</div>
+
+{% endblock %}

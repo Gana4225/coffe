@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 350px;
+    }
+
+    .card img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        height: 40px;
+    }
+
+    .btn-custom {
+        background-color: #ff5722;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        color: white;
+        width: 100%;
+        font-weight: bold;
+    }
+
+    .btn-custom:hover {
+        background-color: #e64a19;
+    }
+
+    .razorpay-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        {% if payment == None %}
+        <img src="/static/{{img}}" alt="coffee">
+
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Enter Name" name="nm">
+            </div>
+
+            <div class="mb-3">
+                <input type="text" class="form-control" value={{price}} name="amt" readonly>
+            </div>
+
+            <button type="submit" class="btn btn-custom">Submit</button>
+        </form>
+        {% endif %}
+
+        {% if payment %}
+        <div class="razorpay-container">
+            <form action="/success/" method="POST">
+                <script
+                    src="https://checkout.razorpay.com/v1/checkout.js"
+                    data-key="rzp_test_fdXm1LWL9qmt0N"
+                    data-amount="{{payment.amount}}"
+                    data-currency="INR"
+                    data-order_id="{{payment.id}}"
+                    data-buttontext="Pay with Razorpay"
+                    data-name="Gana Shop"
+                    data-description="Test Transaction"
+                    data-image="{% static '123.png' %}"
+                    data-prefill.name="gana"
+                    data-prefill.email="ch.gana@gmail.com"
+                    data-prefill.contact="1234567890"
+                    data-theme.color="#f37254">
+                </script>
+                <input type="hidden" value={{rand}} readonly name="rand">
+                <input type="hidden" custom="Hidden Element" name="hidden">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
