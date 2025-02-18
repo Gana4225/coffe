@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
     <style>
         /* General Styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            margin-top: 0;
+            margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
@@ -19,13 +20,13 @@
         .container {
             background: #fff;
             padding: 20px;
-            margin-top: 7rem;
+            margin-top: 5rem;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
-            height:900px;
-            width: 100%;
+            max-width: 90%;
+            width: 500px;
+            min-height: auto;
         }
 
         h2 {
@@ -38,6 +39,7 @@
             align-items: center;
             justify-content: space-between;
             margin: 10px 0;
+            flex-wrap: wrap;
         }
 
         .coffee-item img {
@@ -63,6 +65,30 @@
         button:hover {
             background: #0056b3;
         }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+                margin-top: 2rem;
+            }
+
+            .coffee-item {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .coffee-item img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -75,7 +101,7 @@
                 <img src="{% static 'cappu.jpg' %}" alt="Cappuccino">
                 <input type="hidden" name="name" value="Cappuccino">
                 <input type="hidden" name="image" value="cappu.jpg">
-                <input type="hidden" name="price" value=50>
+                <input type="hidden" name="price" value="50">
                 <button type="submit">Cappuccino - 50 Rs</button>
             </div>
         </form>
@@ -86,7 +112,7 @@
                 <img src="{% static 'espro.jpg' %}" alt="Espresso">
                 <input type="hidden" name="name" value="Espresso">
                 <input type="hidden" name="image" value="espro.jpg">
-                <input type="hidden" name="price" value=70>
+                <input type="hidden" name="price" value="70">
                 <button type="submit">Espresso - 70 Rs</button>
             </div>
         </form>
@@ -97,7 +123,7 @@
                 <img src="{% static 'latti.jpg' %}" alt="Latte">
                 <input type="hidden" name="name" value="Latte">
                 <input type="hidden" name="image" value="latti.jpg">
-                <input type="hidden" name="price" value=80>
+                <input type="hidden" name="price" value="80">
                 <button type="submit">Latte - 80 Rs</button>
             </div>
         </form>
@@ -108,7 +134,7 @@
                 <img src="{% static 'mocha.jpg' %}" alt="Mocha">
                 <input type="hidden" name="name" value="Mocha">
                 <input type="hidden" name="image" value="mocha.jpg">
-                <input type="hidden" name="price" value=40>
+                <input type="hidden" name="price" value="40">
                 <button type="submit">Mocha - 40 Rs</button>
             </div>
         </form>
@@ -119,7 +145,7 @@
                 <img src="{% static 'cortado.jpg' %}" alt="Cortado">
                 <input type="hidden" name="name" value="Cortado">
                 <input type="hidden" name="image" value="cortado.jpg">
-                <input type="hidden" name="price" value=100>
+                <input type="hidden" name="price" value="100">
                 <button type="submit">Cortado - 100 Rs</button>
             </div>
         </form>
