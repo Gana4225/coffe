@@ -1,0 +1,184 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'payments/css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+    {% block title %}<title></title>{% endblock %}
+     <link rel="icon" type="image/png" href="{% static 'payments/images/ASTClogo.jpg' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home22' %}" class="logo" style="color:white"> Coffee 🍵 </a>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="{% url 'home22' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="#services">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'home22' %}">Logout</a>
+        </div>
+        <!-- Time Display Div inside navbar -->
+        <div id="timeDisplay" class="time-display" style="display: none;"></div>
+    </nav>
+
+    <script>
+
+    function updateTime() {
+        var options = { timeZone: 'Asia/Kolkata', hour12: true };
+        var currentTime = new Date().toLocaleString('en-IN', options);
+        document.getElementById('timeDisplay').innerHTML = currentTime;
+    }
+
+    function checkTimeDisplay() {
+        var timeDisplay = document.getElementById('timeDisplay');
+        if (window.innerWidth > 1124 || window.innerWidth < 768) {
+            timeDisplay.style.display = 'block';
+            updateTime();
+        } else {
+            timeDisplay.style.display = 'none';
+        }
+    }
+
+    window.addEventListener('resize', checkTimeDisplay);
+    window.addEventListener('load', checkTimeDisplay);
+    setInterval(updateTime, 1000);
+
+    function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+
+
+
+    </script>
+
+{% block content %}
+
+{% endblock %}
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h3>About Us</h3>
+            <p>Your trusted source for quality services. We strive to provide the best customer experience.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{% url 'home22' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'home22' %}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/sttheressaIET" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/astc.garividi?igsh=MTZxMXh4ZDFpb3Q0bA==" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Gana's Coffee Shop. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .time-display {
+        font-size: 14px;
+        color: #ffffff;
+        font-weight: bold;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+
+
+      /* Footer Styles */
+.footer {
+    background-color: #343a40; /* Dark background */
+    color: #ffffff; /* White text */
+    padding: 40px 20px 20px;
+    font-family: Arial, sans-serif;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-container div {
+    flex: 1;
+    min-width: 200px;
+}
+.footer-about p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin: 8px 0;
+}
+.footer-links a {
+    color: #4caf50; /* Green link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-links a:hover {
+    color: #ffffff;
+}
+.footer-social .social-icons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.footer-social a {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+.footer-social a:hover {
+    color: #ffffff;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    border-top: 1px solid #4caf50;
+    padding-top: 10px;
+}
+
+
+
+/* this correct */
+
+</style>
+
+</body>
+</html>

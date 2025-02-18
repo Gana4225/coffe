@@ -1,0 +1,50 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+{% block content %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'payments/css/about.css' %}">
+{% endblock %}
+
+<section class="about-container">
+    <div class="about-content">
+        <h2>Welcome to Gana's Coffee</h2>
+        <p>At Gana's Coffee, we believe that coffee is more than just a drink—it's an experience. Located in the heart of the city, our cozy coffee shop is the perfect place to relax, recharge, and enjoy a cup of expertly brewed coffee.</p>
+
+        <div class="coffee-details">
+            <h3>Our Specialties</h3>
+            <p>We offer a variety of premium coffee options, each prepared with the finest beans and skillfully crafted to bring you the best taste in every sip. Our popular coffee options include:</p>
+            <ul>
+                <li><strong>Cappuccino</strong> - A smooth blend of espresso and steamed milk with a velvety foam topping.</li>
+                <li><strong>Espresso</strong> - A strong and rich coffee shot with deep, aromatic flavor.</li>
+                <li><strong>Latte</strong> - A creamy espresso drink made with steamed milk and a touch of foam.</li>
+                <li><strong>Mocha</strong> - A delicious fusion of espresso, chocolate syrup, and steamed milk topped with whipped cream.</li>
+                <li><strong>Cortado</strong> - A balanced drink of espresso and steamed milk for a smooth yet bold flavor.</li>
+            </ul>
+        </div>
+
+        <div class="payment-process">
+            <h3>Our Payment and Token System</h3>
+            <p>We’ve made it easy for you to enjoy your coffee without any hassle! Here's how our seamless process works:</p>
+            <ol>
+                <li>When you visit our shop, choose your preferred coffee from our menu.</li>
+                <li>Make your payment through our easy and secure payment system.</li>
+                <li>Once your payment is successful, a unique token will be displayed on the screen for you.</li>
+                <li>Show the token to our friendly barista, and your coffee will be prepared and served instantly!</li>
+            </ol>
+            <p>This streamlined process ensures a quick and efficient experience for every customer. No waiting in long queues—just a simple payment and an immediate coffee experience!</p>
+        </div>
+
+        <div class="shop-info">
+            <h3>Why Choose Gana's Coffee?</h3>
+            <p>Our goal is to provide you with not just a cup of coffee but an unforgettable experience. Whether you're grabbing a quick coffee or settling in for a relaxing afternoon, we’ve got you covered with the best coffee in town.</p>
+            <ul>
+                <li><strong>Premium Coffee Selection</strong> – We only use the finest beans sourced from trusted suppliers.</li>
+                <li><strong>Fast Service</strong> – Our efficient token system ensures you get your coffee in no time.</li>
+                <li><strong>Cozy Ambiance</strong> – A warm and welcoming environment where you can enjoy your coffee comfortably.</li>
+                <li><strong>Friendly Staff</strong> – Our baristas are passionate about coffee and customer service, ensuring a pleasant experience.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

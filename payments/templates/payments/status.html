@@ -1,0 +1,20 @@
+{% extends "payments/base.html" %}
+{% load static %}
+{% block content %}
+{% block extract_css %}
+<link rel="stylesheet" href="{% static 'payments/css/status.css' %}">
+{% endblock %}
+<div class="container">
+    <h2>Your Token: {{rand}}</h2>
+    <h3>Please show this token to our service boy. <br>
+    He will bring you the coffee.</h3>
+
+    <img src="{% static 'payments/images/123.png' %}" alt="Order Confirmed">
+
+    <h2>✅ Payment Successfully Received</h2>
+    <h3>Thanks for ordering from Gana's Coffee Shop ☕</h3>
+
+    <a href="{% url 'home' %}" class="btn">Order Again</a>
+</div>
+
+{% endblock %}

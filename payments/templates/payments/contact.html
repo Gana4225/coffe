@@ -1,0 +1,51 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+{% block content %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'payments/css/contact.css' %}">
+{% endblock %}
+
+<section class="contact-container">
+    <div class="contact-content">
+        <h2>Contact Us</h2>
+        <p>We would love to hear from you! Whether you have a question, feedback, or simply want to connect with us, feel free to reach out using any of the methods below.</p>
+
+        <div class="contact-details">
+            <div class="contact-info">
+                <h3>Our Contact Information</h3>
+                <p><strong>Phone:</strong> <a href="tel:+917989282609">7989282609</a></p>
+                <p><strong>Email:</strong> <a href="mailto:chganapathi4225@gmail.com">chganapathi4225@gmail.com</a></p>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form action="{% url 'contact' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" placeholder="Write your message here..." rows="5" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="location-map">
+            <h3>Our Location</h3>
+            <p>Visit us at: peddasariyapalli, themburu <br>
+            pathapatnam, srikakulam <br>
+            AndharaPradesh 532201.</p>
+            <p><strong>Gana's Coffee</strong><br>
+               peddasariyapalli, themburu <br>
+            pathapatnam, srikakulam <br>
+            AndharaPradesh 532201</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305.2309741118012!2d84.118392283044!3d18.62241520931305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c57cf46d13873%3A0x4594231af3ae2e93!2sPeddasariyapalli%20village!5e1!3m2!1sen!2sin!4v1739874084930!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>
+{% endblock %}
