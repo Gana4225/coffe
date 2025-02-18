@@ -71,6 +71,7 @@
             {% csrf_token %}
             <div class="coffee-item">
                 <img src="{% static 'cappu.jpg' %}" alt="Cappuccino">
+                <input type="hidden" name="name" value="Cappuccino">
                 <input type="hidden" name="image" value="cappu.jpg">
                 <input type="hidden" name="price" value=50>
                 <button type="submit">Cappuccino - 50 Rs</button>
@@ -81,6 +82,7 @@
             {% csrf_token %}
             <div class="coffee-item">
                 <img src="{% static 'espro.jpg' %}" alt="Espresso">
+                <input type="hidden" name="name" value="Espresso">
                 <input type="hidden" name="image" value="espro.jpg">
                 <input type="hidden" name="price" value=70>
                 <button type="submit">Espresso - 70 Rs</button>
@@ -91,6 +93,7 @@
             {% csrf_token %}
             <div class="coffee-item">
                 <img src="{% static 'latti.jpg' %}" alt="Latte">
+                <input type="hidden" name="name" value="Latte">
                 <input type="hidden" name="image" value="latti.jpg">
                 <input type="hidden" name="price" value=80>
                 <button type="submit">Latte - 80 Rs</button>
@@ -101,6 +104,7 @@
             {% csrf_token %}
             <div class="coffee-item">
                 <img src="{% static 'mocha.jpg' %}" alt="Mocha">
+                <input type="hidden" name="name" value="Mocha">
                 <input type="hidden" name="image" value="mocha.jpg">
                 <input type="hidden" name="price" value=40>
                 <button type="submit">Mocha - 40 Rs</button>
@@ -111,6 +115,7 @@
             {% csrf_token %}
             <div class="coffee-item">
                 <img src="{% static 'cortado.jpg' %}" alt="Cortado">
+                <input type="hidden" name="name" value="Cortado">
                 <input type="hidden" name="image" value="cortado.jpg">
                 <input type="hidden" name="price" value=100>
                 <button type="submit">Cortado - 100 Rs</button>
