@@ -27,7 +27,14 @@
     .card img {
         width: 80px;
         height: 80px;
-        margin-bottom: 10px;
+        margin-right: 10px; /* Space between the image and text */
+    }
+
+    .img-text-container {
+        display: flex;
+        align-items: center; /* Vertically align the image and text */
+        justify-content: center; /* Center them horizontally */
+        margin-bottom: 20px; /* Space before the form */
     }
 
     .form-control {
@@ -58,8 +65,10 @@
 <div class="container">
     <div class="card">
         {% if payment == None %}
-        <img src="/static/{{img}}" alt="coffee">
-        <h4>hi hello gana</h4>
+        <div class="img-text-container">
+            <img src="/static/{{img}}" alt="coffee">
+            <h4>hi hello gana</h4>
+        </div>
 
         <form method="POST" action="{% url 'home' %}">
             {% csrf_token %}
