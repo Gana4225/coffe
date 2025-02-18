@@ -37,5 +37,6 @@ def success(request):
 def tt(request):
     amount = request.POST.get('price')
     img = request.POST.get('image')
-    return render(request, "index.html", {'price':amount, 'img':img})
+    nm = request.POST.get('name')
+    return render(request, "index.html", {'price':amount, 'img':img, 'nm':nm})
 #192.168.162.247
