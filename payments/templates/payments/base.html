@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="{% url 'home22' %}" class="logo" style="color:white">Coffee🍵 </a>
+        <a href="{% url 'home22' %}" class="logo" style="color:white">Coffee</a>
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <div class="nav-links">
             <a href="{% url 'home22' %}">Home</a>
@@ -27,7 +27,7 @@
     function updateTime() {
         var options = { timeZone: 'Asia/Kolkata', hour12: true };
         var currentTime = new Date().toLocaleString('en-IN', options);
-        document.getElementById('timeDisplay').innerHTML = currentTime;
+        document.getElementById('timeDisplay').innerHTML = "🫖"+currentTime;
     }
 
     function checkTimeDisplay() {
