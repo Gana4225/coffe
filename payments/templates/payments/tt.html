@@ -1,25 +1,64 @@
 {% extends 'payments/base.html' %}
 {% load static %}
+{% block title %}<title>List</title>{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'payments/css/tt.css' %}">
 {% endblock %}
 {% block content %}
-<div class="coffee-container">
-    <h2>Choose the coffee you want to buy</h2>
 
+<div id="blur">
+    <h2 id="title">Choose the c🍵ffee you want to buy</h2>
+    <div class="con">
     {% for coffee in coffee_list %}
     <form action="{% url 'home' %}" method="POST">
         {% csrf_token %}
         <div class="coffee-item">
-            <img src="/static/payments/images/{{coffee.image}}" alt="{{ coffee.name }}">
+            <img src="{% static 'payments/images/' %}{{ coffee.image }}" alt="{{ coffee.name }}">
+            <h3>{{ coffee.name }}</h3>
+            <p class="coffee-description">{{ coffee.description|truncatewords:10 }}</p>
+            <button type="button" class="read-more"
+                    onclick="showPopup('{{ coffee.name|escapejs }}', '{% static 'payments/images/' %}{{ coffee.image }}', '{{ coffee.description|escapejs }}', '{{ coffee.price }}')">
+                    Read More
+            </button>
             <input type="hidden" name="name" value="{{ coffee.name }}">
             <input type="hidden" name="image" value="{{ coffee.image }}">
-            <input type="hidden" name="price" value={{ coffee.price }}>
-             <input type="hidden" name="form_type" value="ttf">
-
-            <button type="submit">{{ coffee.name }} - {{ coffee.price }} Rs</button>
+            <input type="hidden" name="price" value="{{ coffee.price }}">
+            <input type="hidden" name="form_type" value="ttf">
+            <button type="submit">Buy for {{ coffee.price }} Rs</button>
         </div>
     </form>
     {% endfor %}
+        </div>
 </div>
+
+
+
+<!-- Popup Structure -->
+<div id="popup" class="popup">
+    <img id="popup-image" src="" alt="Coffee Image">
+    <h2 id="popup-title"></h2>
+    <p id="popup-description"></p>
+    <button class="popup-close" onclick="closePopup()">Close</button>
+</div>
+<div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+
+<script>
+function showPopup(name, image, description, price) {
+    document.getElementById('popup-title').innerText = name + " - " + price + " RS";
+    document.getElementById('popup-image').src = image;
+    document.getElementById('popup-description').innerText = description;
+
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('blur').style.filter = 'blur(5px)';
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('blur').style.filter = 'none';
+}
+</script>
+
 {% endblock %}

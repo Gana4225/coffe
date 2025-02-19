@@ -7,18 +7,18 @@
     <div class="card">
         {% if payment == None %}
         <div class="img-text-container">
-            <img src="/static/payments/images/{{img}}" alt="coffee">
+            <img src="{% static 'payments/images/' %}{{img}}" alt="coffee">
             <h4>{{nm}}</h4>
         </div>
 
         <form method="POST" action="{% url 'home' %}">
             {% csrf_token %}
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Enter Your Name" name="nm">
+                <input type="text" class="form-control" placeholder="Enter Your Name" name="nm" required>
             </div>
 
             <div class="mb-3">
-                <input type="text" class="form-control" value={{price}} name="amt" readonly>
+                <input type="text" class="form-control" value="{{price}}" name="amt" readonly>
             </div>
             <input type="hidden" name="form_type" value="indexf">
             <button type="submit" class="btn btn-custom">Submit</button>
@@ -34,23 +34,23 @@
                     data-amount="{{payment.amount}}"
                     data-currency="INR"
                     data-order_id="{{payment.id}}"
-                    data-buttontext="Pay with Razorpay"
-                    data-name="Gana Shop"
+                    data-buttontext="place order"
+                    data-name="Coffee Shop"
                     data-description="Test Transaction"
-                    data-image="{% static '123.png' %}"
+                    data-image="{% static 'payments/images/cofshopd.png' %}"
                     data-prefill.name="gana"
                     data-prefill.email="ch.gana@gmail.com"
                     data-prefill.contact="1234567890"
                     data-theme.color="#f37254">
                 </script>
-                <input type="hidden" value={{rand}} readonly name="rand">
+                <input type="hidden" value="{{rand}}" readonly name="rand">
                 <input type="hidden" custom="Hidden Element" name="hidden">
             </form>
+
         </div>
         {% endif %}
     </div>
 </div>
-
 
 <style>
     body {
@@ -62,7 +62,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 60vh;
+        height: 70vh;
     }
 
     .card {
@@ -77,14 +77,14 @@
     .card img {
         width: 80px;
         height: 80px;
-        margin-right: 10px; /* Space between the image and text */
+        margin-right: 10px;
     }
 
     .img-text-container {
         display: flex;
-        align-items: center; /* Vertically align the image and text */
-        justify-content: center; /* Center them horizontally */
-        margin-bottom: 20px; /* Space before the form */
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
     }
 
     .form-control {
@@ -100,10 +100,13 @@
         color: white;
         width: 100%;
         font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
     }
 
     .btn-custom:hover {
         background-color: #e64a19;
+        transform: scale(1.05);
     }
 
     .razorpay-container {
@@ -112,6 +115,19 @@
     }
 </style>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let razorpayScript = document.querySelector("script[src='https://checkout.razorpay.com/v1/checkout.js']");
+        let customBtn = document.getElementById("customRazorpayBtn");
 
+        if (customBtn) {
+            customBtn.addEventListener("click", function() {
+                if (razorpayScript) {
+                    razorpayScript.click();
+                }
+            });
+        }
+    });
+</script>
 
 {% endblock %}
