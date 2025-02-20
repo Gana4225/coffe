@@ -1,133 +1,255 @@
 {% extends "payments/base.html" %}
 {% load static %}
-{% block title %}<title>Buy</title>{% endblock %}
+
+{% block title %}<title>Secure Checkout</title>{% endblock %}
+
 {% block content %}
+<div class="checkout-container">
+    <div class="checkout-card">
+        {% if payment is None %}
+            <div class="checkout-header">
+                <img src="{% static 'payments/images/' %}{{ img }}" alt="Product Image">
+                <h2>{{ nm }}</h2>
+                <p class="product-price">₹ {{ price }}</p>
+            </div>
 
-<div class="container">
-    <div class="card">
-        {% if payment == None %}
-        <div class="img-text-container">
-            <img src="{% static 'payments/images/' %}{{img}}" alt="coffee">
-            <h4>{{nm}}</h4>
-        </div>
+            <form method="POST" action="{% url 'home' %}" class="checkout-form">
+                {% csrf_token %}
 
-        <form method="POST" action="{% url 'home' %}">
-            {% csrf_token %}
-            <div class="mb-3">
+                <label>Full Name</label>
                 <input type="text" class="form-control" placeholder="Enter Your Name" name="nm" required>
-            </div>
 
-            <div class="mb-3">
-                <input type="text" class="form-control" value="{{price}}" name="amt" readonly>
-            </div>
-            <input type="hidden" name="form_type" value="indexf">
-            <button type="submit" class="btn btn-custom">Submit</button>
-        </form>
-        {% endif %}
+                <!-- Quantity Selector -->
+                <div class="quantity-container">
+                    <button type="button" id="decrease-btn" class="quantity-btn">−</button>
+                    <input type="text" id="quantity" class="quantity-input" value="1" readonly>
+                    <button type="button" id="increase-btn" class="quantity-btn">+</button>
+                </div>
 
-        {% if payment %}
-        <div class="razorpay-container">
-            <form action="/success/" method="POST">
-                <script
-                    src="https://checkout.razorpay.com/v1/checkout.js"
-                    data-key="rzp_test_fdXm1LWL9qmt0N"
-                    data-amount="{{payment.amount}}"
-                    data-currency="INR"
-                    data-order_id="{{payment.id}}"
-                    data-buttontext="place order"
-                    data-name="Coffee Shop"
-                    data-description="Test Transaction"
-                    data-image="{% static 'payments/images/cofshopd.png' %}"
-                    data-prefill.name="gana"
-                    data-prefill.email="ch.gana@gmail.com"
-                    data-prefill.contact="1234567890"
-                    data-theme.color="#f37254">
-                </script>
-                <input type="hidden" value="{{rand}}" readonly name="rand">
-                <input type="hidden" custom="Hidden Element" name="hidden">
+                <!-- Hidden Fields -->
+                <input type="hidden" name="image" value="{{ img }}">
+                <input type="hidden" name="amt" value="{{ price }}">
+                <input type="hidden" name="form_type" value="indexf">
+
+                <button type="submit" class="btn-checkout">Proceed to Payment</button>
             </form>
 
-        </div>
+        {% else %}
+            <div class="checkout-header">
+                <h2 style="text-align:left">Checkout</h2>
+                <img src="{% static 'payments/images/' %}{{ img }}" alt="Product Image">
+            </div>
+
+            <div class="order-summary">
+                <p><strong>Product:</strong> Black Tea</p>
+                <p><strong>Name:</strong> {{ name }}</p>
+                <p><strong>Total:</strong> ₹ {{ price }} (incl. all tax)</p>
+                <p><strong>We will bring your coffee shortly<br>
+                Please make payment</strong></p>
+            </div>
+
+            <button id="customPayButton" class="btn-checkout">Pay Now</button>
+
+            <form id="paymentForm" method="POST" action="{% url 'success' %}">
+                {% csrf_token %}
+                <input type="hidden" name="payment_id" id="payment_id">
+                <input type="hidden" name="order_id" id="order_id">
+                <input type="hidden" name="utr" id="utr">
+                <input type="hidden" name="rand" value="{{ rand }}">
+            </form>
         {% endif %}
     </div>
 </div>
 
-<style>
-    body {
-        background-color: #f8f9fa;
-        font-family: 'Arial', sans-serif;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70vh;
-    }
-
-    .card {
-        background: #fff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        width: 350px;
-    }
-
-    .card img {
-        width: 80px;
-        height: 80px;
-        margin-right: 10px;
-    }
-
-    .img-text-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .form-control {
-        border-radius: 8px;
-        height: 40px;
-    }
-
-    .btn-custom {
-        background-color: #ff5722;
-        border: none;
-        border-radius: 8px;
-        padding: 10px;
-        color: white;
-        width: 100%;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-    }
-
-    .btn-custom:hover {
-        background-color: #e64a19;
-        transform: scale(1.05);
-    }
-
-    .razorpay-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-</style>
-
+{% if payment %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let razorpayScript = document.querySelector("script[src='https://checkout.razorpay.com/v1/checkout.js']");
-        let customBtn = document.getElementById("customRazorpayBtn");
+    document.getElementById("customPayButton").addEventListener("click", function () {
+        var options = {
+            "key": "rzp_test_fdXm1LWL9qmt0N",
+            "amount": "{{ payment.amount }}",
+            "currency": "INR",
+            "order_id": "{{ payment.id }}",
+            "name": "Coffee Shop",
+            "description": "Test Transaction",
+            "image": "{% static 'payments/images/cofshopd.png' %}",
+            "prefill": {
+                "name": "gana",
+                "email": "ch.gana@gmail.com",
+                "contact": "1234567890"
+            },
+            "theme": { "color": "#ff9800" },
+            "handler": function (response) {
+                document.getElementById("payment_id").value = response.razorpay_payment_id;
+                document.getElementById("order_id").value = response.razorpay_order_id;
+                document.getElementById("utr").value = response.razorpay_signature;
+                document.getElementById("paymentForm").submit();
+            }
+        };
 
-        if (customBtn) {
-            customBtn.addEventListener("click", function() {
-                if (razorpayScript) {
-                    razorpayScript.click();
+        var rzp = new Razorpay(options);
+        rzp.open();
+    });
+
+
+       document.addEventListener("DOMContentLoaded", function () {
+        const qtyInput = document.getElementById("quantity");
+        const increaseBtn = document.getElementById("increase-btn");
+        const decreaseBtn = document.getElementById("decrease-btn");
+
+        if (increaseBtn && decreaseBtn && qtyInput) {
+            increaseBtn.addEventListener("click", function () {
+                let currentValue = parseInt(qtyInput.value) || 1;
+                qtyInput.value = currentValue + 1;
+            });
+
+            decreaseBtn.addEventListener("click", function () {
+                let currentValue = parseInt(qtyInput.value) || 1;
+                if (currentValue > 1) {
+                    qtyInput.value = currentValue - 1;
                 }
             });
+        } else {
+            console.error("Buttons or input field not found.");
         }
     });
-</script>
 
+
+</script>
+{% endif %}
+
+<style>
+    /* Checkout Page Styling */
+    .checkout-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 63vh;
+        background: #f8f9fa;
+    }
+
+    .checkout-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 400px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .checkout-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .checkout-header img {
+        width: 250px;
+        height: 180px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    .checkout-header h2 {
+        font-size: 22px;
+        color: #333;
+    }
+
+    .product-price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ff6f00;
+        margin: 10px 0;
+    }
+
+    .checkout-form {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .checkout-form label {
+        font-weight: 600;
+        color: #444;
+    }
+
+    .checkout-form input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    /* Quantity Selector */
+    .quantity-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .quantity-btn {
+        background-color: #ff6f00;
+        border: none;
+        color: white;
+        font-size: 18px;
+        padding: 5px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: 0.2s;
+    }
+
+    .quantity-btn:hover {
+        background-color: #e65100;
+    }
+
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .btn-checkout {
+        background: linear-gradient(90deg, #ff6f00, #ff1744);
+        border: none;
+        border-radius: 8px;
+        padding: 12px 0;
+        width: 100%;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-checkout:hover {
+        background: linear-gradient(90deg, #e65100, #d50000);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 81, 47, 0.4);
+    }
+
+    .order-summary {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .order-summary p {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    @media (max-width: 768px) {
+        .checkout-card {
+            width: 90%;
+        }
+    }
+</style>
 {% endblock %}
