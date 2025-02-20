@@ -15,7 +15,7 @@
         <div class="nav-links">
             <a href="{% url 'home22' %}">Home</a>
             <a href="{% url 'about' %}">About</a>
-            <a href="#services">Services</a>
+            <a href="{% url 'soon' %}">Services</a>
             <a href="{% url 'contact' %}">Contact</a>
         </div>
         <!-- Time Display Div inside navbar -->
@@ -68,15 +68,16 @@
             <ul>
                 <li><a href="{% url 'home22' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="{% url 'soon' %}">Services</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'refund' %}">Return & refund Policy</a></li>
             </ul>
         </div>
         <div class="footer-social">
             <h3>Follow Us</h3>
             <div class="social-icons">
-                <a href="https://www.facebook.com/sttheressaIET" target="_blank">Facebook</a>
-                <a href="https://www.instagram.com/astc.garividi?igsh=MTZxMXh4ZDFpb3Q0bA==" target="_blank">Instagram</a>
+                <a href="{% url 'soon' %}" target="_blank">Facebook</a>
+                <a href="{% url 'soon' %}" target="_blank">Instagram</a>
             </div>
         </div>
     </div>

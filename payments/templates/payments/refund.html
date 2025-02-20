@@ -1,0 +1,29 @@
+{% extends "payments/base.html" %}
+{% load static %}
+{% block content %}
+{% block extract_css %}<link rel="stylesheet" href="{% static 'payments/css/refund.css' %}">{% endblock %}
+<div class="policy-container">
+    <h1>Refund & Return Policy</h1>
+    <p>At Gana's Coffee Shop, we strive to provide the best experience for our customers. Below is our refund and return policy:</p>
+
+    <h2>Refund Policy</h2>
+    <p>If your payment has failed or you have a valid reason to request a refund, we offer a refund within <strong>7-8 days</strong> of the payment date.</p>
+    <ul>
+        <li>Refund requests must be made within 24 hours of the order.</li>
+        <li>Any refund request raised after one day will not be accepted.</li>
+        <li>Refunds will be processed back to the original payment method.</li>
+        <li>Processing time may take 5-7 business days.</li>
+    </ul>
+
+    <h2>Return Policy</h2>
+    <p>Since we provide perishable food and beverages, returns are not accepted. However, if there is an issue with your order, such as a wrong or defective item, please contact our support team immediately.</p>
+
+    <h2>Contact Us</h2>
+    <p>If you have any questions regarding our refund and return policy, feel free to contact us at <strong>chganapathi4225@gmail.com</strong>.</p>
+
+    <a href="{% url 'home22' %}" class="btn">Back to Home</a>
+</div>
+
+
+
+{% endblock %}

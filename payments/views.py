@@ -8,27 +8,31 @@ from .utils import coffee_data
 def home(request):
     if request.method == "POST":
         for_type = request.POST.get('form_type')
-
         if for_type == "indexf":
+            xyz = request.POST.get('name')
             name = request.POST.get('nm')
             at = request.POST.get("amt")
             img = request.POST.get('image')
-            amount = int(at) * 100
+            qua = int(request.POST.get('quantity'))
+            amount = int(at) * 100 * qua
+            amount1 = amount//100
             client = razorpay.Client(auth=("rzp_test_fdXm1LWL9qmt0N", "7uhH9YraGtUn5tGMthG20A6L"))
             payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
             coffee = coff(name=name, amount=at, pid=payment['id'])
             coffee.save()
             random_number = random.randint(100000, 999999)
-            context = {'payment': payment, 'rand': random_number, 'name':name, 'price':at, 'img': img}
+            context = {'payment': payment, 'rand': random_number, 'name':name, 'price':at, 'amt':amount1, 'img': img, 'qua':qua, 'xyz':xyz}
             response = render(request, "payments/index.html", context)
             payment = None  # This removes payment from memory
 
             return response
         else:
+            quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             amount = request.POST.get('price')
             img = request.POST.get('image')
             nm = request.POST.get('name')
-            return render(request, "payments/index.html", {'price': amount, 'img': img, 'nm': nm})
+            print(nm)
+            return render(request, "payments/index.html", {'price': amount, 'img': img, 'nm': nm, 'qua':quantity})
     # 192.168.162.247
 
 
@@ -68,3 +72,9 @@ def contact_page(request):
         print(f"Message from {name}, Email: {email} - Message: {message}")
         return render(request, 'payments/contact.html', {'message': 'Thank you for your message!'})
     return render(request, 'payments/contact.html')
+
+def refund(request):
+    return render(request, "payments/refund.html")
+
+def soon(request):
+    return render(request, "payments/soon.html")

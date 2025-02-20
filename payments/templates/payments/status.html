@@ -5,15 +5,17 @@
 <link rel="stylesheet" href="{% static 'payments/css/status.css' %}">
 {% endblock %}
 <div class="container">
-    <h2>Your Token: {{rand}}</h2>
+    <h2>Your Token: <span class="highlight">{{rand}}</span></h2>
     <h3>Please show this token to our service boy. <br>
     He will bring you the coffee.</h3>
 
-    <img src="{% static 'payments/images/123.png' %}" alt="Order Confirmed">
+    <div class="image-container">
+        <img src="{% static 'payments/images/123.png' %}" alt="Order Confirmed">
+    </div>
 
-    <h2>✅ Payment Successfully Received</h2>
-    <h3>Payment ID : {{pay_id}}</h3>
-    <h3>Thanks for ordering from Gana's Coffee Shop ☕</h3>
+    <h2 class="success"> Payment Successfully Received</h2>
+    <h3>Payment ID : <span class="highlight">{{pay_id}}</span></h3>
+    <h3>Thanks for ordering from <span class="shop-name">Gana's Coffee Shop ☕</span></h3>
 
     <a href="{% url 'home22' %}" class="btn">Order Again</a>
 </div>

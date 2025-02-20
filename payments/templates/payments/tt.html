@@ -1,10 +1,11 @@
 {% extends 'payments/base.html' %}
 {% load static %}
 {% block title %}<title>List</title>{% endblock %}
+{% block content %}
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'payments/css/tt.css' %}">
 {% endblock %}
-{% block content %}
 
 <div id="blur">
     <h2 id="title">Choose the c🍵ffee you want to buy</h2>
@@ -24,7 +25,7 @@
             <input type="hidden" name="image" value="{{ coffee.image }}">
             <input type="hidden" name="price" value="{{ coffee.price }}">
             <input type="hidden" name="form_type" value="ttf">
-            <button type="submit">Buy for {{ coffee.price }} Rs</button>
+            <button type="submit">Buy for {{ coffee.price }}₹</button>
         </div>
     </form>
     {% endfor %}
