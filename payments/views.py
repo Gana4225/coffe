@@ -10,16 +10,15 @@ def home(request):
         for_type = request.POST.get('form_type')
         if for_type == "indexf":
             xyz = request.POST.get('name')
-            name = request.POST.get('nm')
-            at = request.POST.get("amt")
+            name = request.session['name'] = request.POST.get('nm')
+            at = request.session["at"] = request.POST.get("amt")
             img = request.POST.get('image')
             qua = int(request.POST.get('quantity'))
             amount = int(at) * 100 * qua
             amount1 = amount//100
             client = razorpay.Client(auth=("rzp_test_fdXm1LWL9qmt0N", "7uhH9YraGtUn5tGMthG20A6L"))
             payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
-            coffee = coff(name=name, amount=at, pid=payment['id'])
-            coffee.save()
+            request.session["pid"] = payment['id']
             random_number = random.randint(100000, 999999)
             context = {'payment': payment, 'rand': random_number, 'name':name, 'price':at, 'amt':amount1, 'img': img, 'qua':qua, 'xyz':xyz}
             response = render(request, "payments/index.html", context)
@@ -31,7 +30,6 @@ def home(request):
             amount = request.POST.get('price')
             img = request.POST.get('image')
             nm = request.POST.get('name')
-            print(nm)
             return render(request, "payments/index.html", {'price': amount, 'img': img, 'nm': nm, 'qua':quantity})
     # 192.168.162.247
 
@@ -41,6 +39,7 @@ def home(request):
 def success(request):
     if request.method == "POST":
         a = request.POST
+        print(request.session.get('gana'))
         rand = request.POST.get('rand')
         payment_id = request.POST.get("payment_id")
         order_id = request.POST.get("order_id")
@@ -52,6 +51,13 @@ def success(request):
                 user = coff.objects.filter(pid=order_id).first()
                 user.paid = True
                 user.save()
+
+        a = coff.objects.filter(pid=request.session.get('pid')).count()
+        if a < 1:
+            coffee = coff(name=request.session.get('name'),
+                          amount=request.session.get('at'),
+                          pid=request.session.get('pid'))
+            coffee.save()
     return render(request,"payments/status.html", {'rand':rand, 'utr':utr, 'pay_id':payment_id})
 
 def tt(request):
