@@ -39,7 +39,6 @@ def home(request):
 def success(request):
     if request.method == "POST":
         a = request.POST
-        print(request.session.get('gana'))
         rand = request.POST.get('rand')
         payment_id = request.POST.get("payment_id")
         order_id = request.POST.get("order_id")
