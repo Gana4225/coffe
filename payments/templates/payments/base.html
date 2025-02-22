@@ -17,6 +17,13 @@
             <a href="{% url 'about' %}">About</a>
             <a href="{% url 'soon' %}">Services</a>
             <a href="{% url 'contact' %}">Contact</a>
+            {% if request.session.user %}
+            <a href="{% url 'edit' %}">Edit</a>
+            <a href="{% url 'ladmin' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'ladmin' %}">Admin</a>
+            {% endif %}
+
         </div>
         <!-- Time Display Div inside navbar -->
         <div id="timeDisplay" class="time-display" style="display: none;"></div>
@@ -32,7 +39,7 @@
 
     function checkTimeDisplay() {
         var timeDisplay = document.getElementById('timeDisplay');
-        if (window.innerWidth > 1124 || window.innerWidth < 768) {
+        if (window.innerWidth > 1263 || window.innerWidth < 768) {
             timeDisplay.style.display = 'block';
             updateTime();
         } else {

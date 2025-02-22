@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 import razorpay
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
@@ -83,3 +84,36 @@ def refund(request):
 
 def soon(request):
     return render(request, "payments/soon.html")
+
+@csrf_exempt
+def ladmin(request):
+    ousernm = "admin"
+    opassw = "admin"
+    if request.method == "POST":
+        user = request.POST.get('usernm')
+        passw = request.POST.get('passw')
+
+        if passw == opassw:
+            request.session['user'] = user
+            return redirect('edit')
+    if request.session.get('user'):
+            if request.method == "GET":
+                del request.session['user']
+
+    return render(request, "payments/login.html")
+def edit(request):
+    if request.session.get('user'):
+        if request.method == "POST":
+            name = request.POST.get('name')
+            price = request.POST.get("price")
+            description = request.POST.get('description')
+            image = request.FILES.get("image")
+        try:
+            cofffdata.objects.create(name=name,price=price,description=description,image=image)
+        except Exception as e:
+            print(e)
+        if request.method == "GET":
+            return render(request, "payments/edit.html")
+        bbt = 2525
+        return render(request, "payments/status.html", {"edit":bbt})
+    return render(request, "payments/login.html")

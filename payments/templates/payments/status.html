@@ -4,6 +4,7 @@
 {% block extract_css %}
 <link rel="stylesheet" href="{% static 'payments/css/status.css' %}">
 {% endblock %}
+{% if rand %}
 <div class="container">
     <h2>Your Token: <span class="highlight">{{rand}}</span></h2>
     <h3>Please show this token to our service boy. <br>
@@ -19,5 +20,13 @@
 
     <a href="{% url 'home22' %}" class="btn">Order Again</a>
 </div>
+{% endif %}
+
+{% if edit == 2525 %}
+<div class="container">
+        <h3>Upload success</h3>
+        <a href="{% url 'edit' %}" class="btn">Upload Again</a>
+</div>
+{% endif %}
 
 {% endblock %}

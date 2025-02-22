@@ -1,0 +1,26 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+{% block content %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'payments/css/login.css' %}">
+{% endblock %}
+
+
+    <div class="login-container">
+        <h2>Welcome to Coffee Bliss</h2>
+        <form method="POST" action="{% url 'ladmin' %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username" name="usernm" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" name="passw" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+
+{% endblock %}

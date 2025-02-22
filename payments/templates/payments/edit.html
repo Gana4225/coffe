@@ -1,0 +1,29 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+{% block content %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'payments/css/edit.css' %}">
+{% endblock %}
+
+    <div class="container">
+        <h2>Upload Coffee Product</h2>
+
+        <form method="POST" enctype="multipart/form-data" action="{% url 'edit' %}">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Enter Name" required>
+            <input type="number" name="price" placeholder="Enter Price" required>
+            <textarea name="description" placeholder="Enter Description" required></textarea>
+
+            <!-- Custom File Upload -->
+            <div class="file-upload">
+                <label class="file-label">
+                    <input type="file" name="image" accept="image/*">
+                    📂 Choose Image
+                </label>
+            </div>
+
+            <button type="submit" class="upload-btn" onclick="gana()">🚀 Upload</button>
+        </form>
+    </div>
+{% endblock %}
