@@ -2,7 +2,7 @@ coffee_data = [
         {
             "name": "Cappuccino",
             "image": "cappu.jpg",
-            "price": 50,
+            "price": 5,
             "description": """Cappuccino is a popular Italian coffee beverage.
     It consists of a double shot of espresso.
     Steamed milk is added for a creamy texture.
