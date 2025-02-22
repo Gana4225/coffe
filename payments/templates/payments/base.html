@@ -25,19 +25,21 @@
             {% endif %}
 
         </div>
-        <!-- Time Display Div inside navbar -->
+        <!-- Time Display Div inside navbar
         <div id="timeDisplay" class="time-display" style="display: none;"></div>
+         -->
     </nav>
 
     <script>
 
-    function updateTime() {
+ /*   function updateTime() {
         var options = { timeZone: 'Asia/Kolkata', hour12: true };
         var currentTime = new Date().toLocaleString('en-IN', options);
         document.getElementById('timeDisplay').innerHTML = "🫖"+currentTime;
     }
+    */
 
-    function checkTimeDisplay() {
+   /* function checkTimeDisplay() {
         var timeDisplay = document.getElementById('timeDisplay');
         if (window.innerWidth > 1263 || window.innerWidth < 768) {
             timeDisplay.style.display = 'block';
@@ -50,7 +52,7 @@
     window.addEventListener('resize', checkTimeDisplay);
     window.addEventListener('load', checkTimeDisplay);
     setInterval(updateTime, 1000);
-
+*/
     function toggleMenu() {
         const navLinks = document.querySelector('.nav-links');
         navLinks.classList.toggle('active');
