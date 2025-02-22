@@ -117,3 +117,4 @@ def edit(request):
         bbt = 2525
         return render(request, "payments/status.html", {"edit":bbt})
     return render(request, "payments/login.html")
+
