@@ -17,7 +17,7 @@ def home(request):
             qua = int(request.POST.get('quantity'))
             amount = int(at) * 100 * qua
             amount1 = amount//100
-            client = razorpay.Client(auth=("rzp_live_vFZrNfs1Qu9cx4", "B8zpbYSMCee3yDJarwOuyqH8"))
+            client = razorpay.Client(auth=("rzp_test_F4KAIVewl3a2UP", "hPfWC0HrQlkaxHtaWtSUllrF"))
             payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
             request.session["pid"] = payment['id']
             random_number = random.randint(100000, 999999)

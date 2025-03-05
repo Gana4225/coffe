@@ -6,24 +6,50 @@
     <link rel="stylesheet" href="{% static 'payments/css/edit.css' %}">
 {% endblock %}
 
-    <div class="container">
-        <h2>Upload Coffee Product</h2>
+<div class="container">
+    <h2>Upload Coffee Product</h2>
 
-        <form method="POST" enctype="multipart/form-data" action="{% url 'edit' %}">
-            {% csrf_token %}
-            <input type="text" name="name" placeholder="Enter Name" required>
-            <input type="number" name="price" placeholder="Enter Price" required>
-            <textarea name="description" placeholder="Enter Description" required></textarea>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'edit' %}">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <input type="number" name="price" placeholder="Enter Price" required>
+        <textarea name="description" placeholder="Enter Description" required></textarea>
 
-            <!-- Custom File Upload -->
-            <div class="file-upload">
-                <label class="file-label">
-                    <input type="file" name="image" accept="image/*">
-                    📂 Choose Image
-                </label>
-            </div>
+        <!-- Custom File Upload -->
+        <div class="file-upload">
+            <label class="file-label">
+                <input type="file" name="image" accept="image/*" id="imageUpload" onchange="previewImage(event)">
+                📂 Choose Image
+            </label>
+        </div>
 
-            <button type="submit" class="upload-btn" onclick="gana()">🚀 Upload</button>
-        </form>
-    </div>
+        <!-- Image Preview -->
+        <div id="previewContainer">
+            <img id="imagePreview" src="" alt="Image Preview" style="display: none; width: 150px; height: auto; margin-top: 10px;">
+        </div>
+
+        <button type="submit" class="upload-btn" onclick="gana()">🚀 Upload</button>
+    </form>
+</div>
+
+<!-- JavaScript for Image Preview -->
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById("imagePreview");
+        var previewContainer = document.getElementById("previewContainer");
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+
+            reader.readAsDataURL(input.files[0]); // Read the file as a data URL
+        }
+    }
+</script>
+
 {% endblock %}
